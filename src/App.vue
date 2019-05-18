@@ -42,5 +42,6 @@ h1 {
 }
 .main-menu {
   background: #2e2e2e;
+  min-height: 110px;
 }
 </style>
