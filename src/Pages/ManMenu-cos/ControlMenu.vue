@@ -1,9 +1,9 @@
 <template>
     <mdb-container fluid>
         <div class="wrapper">
-            <mdb-btn color="grey lighten-2" class="btn-menu"
+            <mdb-btn color="grey lighten-2" :class="['btn-menu',{'btn-active':index==ActiveIndex}]"
                 v-for="(item,index) in btnData" 
-                :key="index" 
+                :key="index"
                 @click="menuBtnClickHandle(index)"
                 :title="item.introduce" >
                 <mdb-icon :icon="item.icon" size="2x" />
@@ -47,12 +47,13 @@ export default {
           ],
           nowWorkNum:999,//当前工序,
           runningTime: '99:99',//运行时间,
-          currentOperation: '显示当前操作指导'
+          currentOperation: '显示当前操作指导',
+          ActiveIndex:null
       }
   },
   methods: {
       menuBtnClickHandle:function(index) {
-
+          this.ActiveIndex = index;
       }
   }
 }
@@ -101,6 +102,9 @@ export default {
 .wrapper .message .running-time {
     margin-left: 1rem;
     color: #2BBBAD;
+}
+.wrapper .btn-menu.btn-active {
+    background-color:#00C851 !important;
 }
 </style>
 

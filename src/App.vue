@@ -4,11 +4,13 @@
     <div class="main-menu">
       <transition name="fade" mode="out-in"><router-view></router-view></transition>
     </div>
+    <WorkContainer />
   </div>
 </template>
 
 <script>
 import ToolList from './Pages/ToolList.vue';
+import WorkContainer from './Pages/WorkContainer.vue';
 import { mdbNavbar, mdbNavItem, mdbNavbarNav, mdbNavbarToggler, mdbNavbarBrand, mdbFooter } from 'mdbvue';
 
 export default {
@@ -20,13 +22,14 @@ export default {
     mdbNavbarToggler,
     mdbNavbarBrand,
     mdbFooter,
-    ToolList
+    ToolList,
+    WorkContainer
   }
 };
 
 </script>
 
-<style>
+<style lang="less">
 h1 {
   color:#fff;
 }

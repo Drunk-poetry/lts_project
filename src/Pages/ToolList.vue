@@ -11,7 +11,7 @@
                 </mdb-btn-group>
             </mdb-col>
             <mdb-col col="sm-3" class="text-truncate text-monospace tool-Title"><p>{{toolTitle}}</p></mdb-col>
-            <mdb-col col="sm-4"><p class="float-left">list-super</p><p class="float-right">v1.011</p></mdb-col>
+            <mdb-col col="sm-4"><p class="float-left"><mdb-icon icon="lock" /> list-super</p><p class="float-right">v1.011</p></mdb-col>
         </mdb-row>
   </mdb-container>
 </template>
@@ -69,7 +69,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+@import url('../assets/css/globalStyle.less');
 p{
     margin: 0;
     padding: 0;
@@ -87,8 +88,9 @@ p{
     margin: 0;
     padding: 0;
 }
-.Tool-wrapper  .btn-border:hover {
-    @btnHover
+.Tool-wrapper  .btn-border {
+    .btn-hover
 }
+
 </style>
 
