@@ -11,7 +11,7 @@
                 </mdb-btn-group>
             </mdb-col>
             <mdb-col col="sm-3" class="text-truncate text-monospace tool-Title"><p>{{toolTitle}}</p></mdb-col>
-            <mdb-col col="sm-4"><p class="float-left"><mdb-icon icon="lock" /> list-super</p><p class="float-right">v1.011</p></mdb-col>
+            <mdb-col col="sm-4"><p class="float-left"><span class="iconfont"><img class="img-fluid" src="../assets/images/user.svg" alt=""></span> list-super</p><p class="float-right">v1.011</p></mdb-col>
         </mdb-row>
   </mdb-container>
 </template>
@@ -79,6 +79,12 @@ p{
     min-height: 1.7rem;
     background: #616161;
     color: #fff;
+    .float-left {
+        span {
+            display: inline-block;
+            width: 1.3rem;
+        }
+    }
 }
 .Tool-wrapper .tool-Title {
     color: #ffbb33;

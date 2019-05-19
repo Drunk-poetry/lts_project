@@ -145,7 +145,7 @@ export default {
 <style lang="less">
 .table-wrapper {
     text-align: center;
-    background: #616161;
+    background: #535353;
     border: none;
     .table-header {
         border: none;
@@ -176,7 +176,7 @@ export default {
     }
     .my-table {
         tr:hover {
-            background:#757575;
+            background:#616161;
         }
     }
 }

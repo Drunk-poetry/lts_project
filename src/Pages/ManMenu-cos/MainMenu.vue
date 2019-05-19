@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h1>光导培训系统</h1>
+    <div class="bg">
+        
     </div>
 </template>
 
@@ -11,6 +11,11 @@ export default {
 </script>
 
 <style scoped>
-
+.bg {
+    background-image:url('../../assets/images/bg1.jpg');
+    background-size: 100% auto;
+    height: 110px;
+    width: 100%;
+}
 </style>
 

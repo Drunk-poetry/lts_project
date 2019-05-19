@@ -116,8 +116,8 @@ export default new Router({
       path: '/animation',
       component:AnimationMenu
     },{
-      path: "*",
-      component:MainMenu
+      path: '*',
+      redirect:'/'
     }
   ]
 });
