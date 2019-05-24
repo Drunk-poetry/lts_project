@@ -23,9 +23,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.work-container {
-    background-color: #2E2E2E;
-    min-height: 20rem;
-}
+
 </style>
 
