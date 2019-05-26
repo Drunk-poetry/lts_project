@@ -98,6 +98,7 @@ export default {
 }
 .wrapper {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     background: #616161;
@@ -153,7 +154,7 @@ export default {
                     }
                     &:hover {
                         background:#3b465e !important;
-                        transform: scale(1.05,1.05);
+                        transform: scale(1.02,1.02);
                     }
                 }
             }
