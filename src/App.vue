@@ -44,6 +44,7 @@ h1 {
 * {
   margin: 0;
   padding: 0;
+  user-select: none;
 }
 #app {
   width: 100%;

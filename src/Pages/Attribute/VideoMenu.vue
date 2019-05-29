@@ -1,15 +1,17 @@
 <template>
     <div class="wrapper">
         <div class="img-content">
-            <div class="img" :style="{'background-image':'url('+imgUrl+')'}"></div>
+            <div class="img">
+                <video :src="videoUrl" ref="myVideo"></video>
+            </div>
         </div>
 
         <div class="choose-content">
             <span class="file-name">{{imgName}}</span>
             <mdb-btn color="grey lighten-2" @click="chooseFile" class="my-btn">
-                <span>选择图片</span>
+                <span>选择视频</span>
             </mdb-btn>
-            <input type="file" size="sm" class="file-input" accept="image/*" ref="fileInput" @change="fileChange" />
+            <input type="file" size="sm" class="file-input" accept=".mp4,.ogg,.webm" ref="fileInput" @change="fileChange" />
 
             <div class="my-select">
                 <span>备注</span>
@@ -18,54 +20,67 @@
         </div>
 
         <div class="right">
-            <!-- 图片参数 -->
+            <!-- 视频参数 -->
             <div class="custom-control custom-checkbox my-checkbox">
-                <input type="checkbox" class="custom-control-input" id="testShow" v-model="testShow">
-                <label class="custom-control-label" for="testShow">在考评模式下保持显示</label>
+                <input type="checkbox" class="custom-control-input" id="mute" v-model="mute">
+                <label class="custom-control-label" for="mute">静音</label>
             </div>
 
             <div class="custom-control custom-checkbox my-checkbox">
-                <input type="checkbox" class="custom-control-input" id="colorCard" v-model="colorCard">
-                <label class="custom-control-label" for="colorCard">开启颜色滤片</label>
-                <mdb-btn color="" id="myColor"
-                    class="my-btn color-btn"
-                    @click="btnClick">
-                    <span class="iconfont" >&#xe632;</span>
-                </mdb-btn>
-                <!-- 触发颜色面板 -->
-                <input type="color" class="form-control form-control-sm my-color" 
-                        ref="myColor" 
-                        v-model="myColor"
-                        @change="ChangeMyColor">
+                <input type="checkbox" class="custom-control-input" id="cycle" v-model="cycle">
+                <label class="custom-control-label" for="cycle">循环</label>
             </div>
 
-            <div>
-                <!-- 透明度 -->
-                <label>透明度</label>
-                <input type="number" class="num-input" placeholder="1.00" min="0" max="1" step="0.01"
-                        v-model="colorOpacity">
+            <!-- 播放控制 -->
+            <mdb-btn color="" id="myColor"
+                    class="my-btn my-btn2"
+                    @click="btnClick('play')">
+                    <span class="iconfont" >&#xe731;</span>
+            </mdb-btn>
+            <mdb-btn color="" id="myColor"
+                    class="my-btn my-btn2"
+                    @click="btnClick('pause')">
+                    <span class="iconfont" >&#xe61e;</span>
+            </mdb-btn>
         </div>
-        </div>
+
+        <!-- 消息提示 -->
+        <mdb-modal :show="modal" @close="modal = false" side position="top-left" direction="left">
+            <mdb-modal-header class="bg2">
+                <mdb-modal-title>警告:</mdb-modal-title>
+            </mdb-modal-header>
+            <mdb-modal-body class="bg1">请先选择视频再进行此操作！</mdb-modal-body>
+            <mdb-modal-footer class="bg1">
+                <mdb-btn color="amber lighten-1" @click.native="modal = false">关闭</mdb-btn>
+                <mdb-btn color="primary"  @click="chooseFile">选择视频</mdb-btn>
+            </mdb-modal-footer>
+        </mdb-modal>
+
     </div>
 </template>
 
 <script>
-import { mdbInput,mdbBtn } from 'mdbvue'
+import { mdbInput,mdbBtn,mdbModal, mdbModalHeader, mdbModalTitle, mdbModalBody, mdbModalFooter } from 'mdbvue'
 export default {
-    name:'ImageMenu',
+    name:'VideoMenu',
     components:{
         mdbInput,
-        mdbBtn
+        mdbBtn,
+        mdbModal,
+        mdbModalHeader,
+        mdbModalTitle,
+        mdbModalBody,
+        mdbModalFooter
     },
     data(){
         return{
-            imgUrl:'',
-            imgName:'请选择图片',
+            videoUrl:'',
+            imgName:'请选择视频',
             testShow:false,
-            colorCard:false,
-            myColor:'',
-            colorOpacity:1,
-            remark:''
+            mute:false,
+            cycle:false,
+            remark:'',
+            modal: false
         }
     },
     methods:{
@@ -77,15 +92,34 @@ export default {
             let fileInput = this.$refs.fileInput;
             this.imgName = fileInput.files[0].name;
             let url = window.URL.createObjectURL(fileInput.files[0]);
-            this.imgUrl = url;
+            this.videoUrl = url;
+            this.modal = false;
         },
-        btnClick:function(){
-            let colorInput = this.$refs.myColor;
-            colorInput.click();
+        btnClick:function(instruction){
+            if(this.videoUrl) {
+                let video = this.$refs.myVideo;
+                if(instruction == 'play') {
+                    video.play();
+                } else if(instruction == 'pause') {
+                    video.pause();
+                }
+            } else {
+                this.modal = true;
+            }
+        }
+    },
+    watch:{
+        mute:function(val){
+            let video = this.$refs.myVideo;
+            if(val) {
+                video.muted = 1;
+            } else {
+                video.muted = 0;
+            }
         },
-        ChangeMyColor:function(event){//改变颜色后执行
-            let colorBtn = document.getElementById('myColor');
-            colorBtn.style.backgroundColor = this.myColor;
+        cycle:function(val){
+            let video = this.$refs.myVideo;
+            video.loop=val;
         }
     }
 }
@@ -103,10 +137,10 @@ export default {
         border-right: 1px solid #f8f8f8;
         .img{
             border: 1px solid #acacac;
-            height: 5rem;
             width: 5rem;
-            background-size: cover;
-            background-position: center;
+            video {
+                width: 100%;
+            }
         }
     }
 
@@ -153,7 +187,8 @@ export default {
             .color-btn {
                 margin-left: 15px;
             }
-            .my-btn {
+        }
+        .my-btn {
                 span{
                     font-size: 22px;
                     line-height: 25px;
@@ -161,8 +196,8 @@ export default {
                 padding: 0 2px;
                 min-width: 25px;
                 height: 25px;
+                border: 50%;
             }
-        }
         .my-color {
             display: none;
         }
@@ -193,9 +228,19 @@ export default {
         height: 30px;
         transition: .3s;
         &:hover{
+            color: #f8f8f8;
             animation: pulse .3s;
             background-color: #4285F4!important;
         }
+    }
+
+    .bg1 {
+        color: #f8f8f8;
+        background: #757575;
+    }
+    .bg2 {
+        color: #f8f8f8;
+        background: #FF8800;
     }
 }
 </style>

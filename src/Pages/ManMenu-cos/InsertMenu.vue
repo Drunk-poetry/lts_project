@@ -15,7 +15,8 @@
                 v-for="(item,index) in btnData" 
                 :key="index"
                 @click="menuBtnClickHandle(index)"
-                :title="item.introduce" >
+                :title="item.introduce"
+                :disabled="item.disable" >
                 <span class="iconfont" v-html="item.icon"></span>
                 <!-- <mdb-icon :icon="item.icon" size="2x" /> -->
                 <!-- <img :src="item.icon" class="img-fluid btn-img" alt="Responsive image"> -->
@@ -50,7 +51,7 @@ export default {
               {name:'倒计时',icon:'&#xe62b;',introduce:''},
               {name:'拍照',icon:'&#xe612;',introduce:''},
               {name:'确认条件',icon:'&#xe6d8;',introduce:''},
-              {name:'资源',icon:'&#xe67d;',introduce:''},
+              {name:'资源',icon:'&#xe67d;',introduce:'',disable:true},
               {name:'清楚',icon:'&#xe623;',introduce:''},
               {name:'考评',icon:'&#xe86c;',introduce:''},
           ],
