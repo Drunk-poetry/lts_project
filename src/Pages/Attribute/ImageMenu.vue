@@ -44,7 +44,7 @@
                 <label>透明度</label>
                 <input type="number" class="num-input" placeholder="1.00" min="0" max="1" step="0.01"
                         v-model="colorOpacity">
-        </div>
+            </div>
         </div>
     </div>
 </template>
@@ -59,29 +59,29 @@ export default {
     },
     data(){
         return{
-            imgUrl:'',
-            imgName:'请选择图片',
-            testShow:false,
-            colorCard:false,
-            myColor:'',
-            colorOpacity:1,
-            remark:''
+            imgUrl:'',//图片地址
+            imgName:'请选择图片',//图片名
+            testShow:false,//是否考评模式下显示
+            colorCard:false,//是否显示蒙版颜色
+            myColor:'',//蒙版颜色
+            colorOpacity:1,//蒙版透明度
+            remark:''//注释
         }
     },
     methods:{
-        chooseFile:function(){
+        chooseFile:function(){//选择文件的按钮事件
             let fileInput = this.$refs.fileInput;
-            fileInput.click();
+            fileInput.click();//触发input
         },
-        fileChange:function(){
+        fileChange:function(){//文件选择后执行
             let fileInput = this.$refs.fileInput;
-            this.imgName = fileInput.files[0].name;
-            let url = window.URL.createObjectURL(fileInput.files[0]);
+            this.imgName = fileInput.files[0].name;//获得文件名
+            let url = window.URL.createObjectURL(fileInput.files[0]);//获得文件地址
             this.imgUrl = url;
         },
-        btnClick:function(){
+        btnClick:function(){//颜色按钮绑定事件
             let colorInput = this.$refs.myColor;
-            colorInput.click();
+            colorInput.click();//触发颜色input事件
         },
         ChangeMyColor:function(event){//改变颜色后执行
             let colorBtn = document.getElementById('myColor');

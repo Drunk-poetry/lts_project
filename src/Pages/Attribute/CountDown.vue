@@ -172,16 +172,16 @@ export default {
             FontFamily:'微软雅黑',//字体
             FontSize: '24',//字体大小
             FontArr:['微软雅黑','黑体','宋体','华文行楷'],//字体
-            CurrentColor:'',
-            StartColor:'',
-            WarnColor:'',
-            OverColor:'',
-            StartTime:30,
-            WarnTime:8,
-            OverTime:10,
-            WarningFlash:false,
-            OverFlash:false,
-            isActive0:false,
+            CurrentColor:'',//字体颜色
+            StartColor:'',//开始颜色
+            WarnColor:'',//警告颜色
+            OverColor:'',//超出颜色
+            StartTime:30,//开始时间
+            WarnTime:8,//警告时间
+            OverTime:10,//超出时间
+            WarningFlash:false,//是否警告闪烁
+            OverFlash:false,//是否超出闪烁
+            isActive0:false,//按钮状态
             isActive1:false,
             isActive2:false,
             isActive3:false,
@@ -216,23 +216,23 @@ export default {
         },
         ChangeColor:function(ele){//改变颜色后执行
             switch(ele) {
-                case 'TextColor':{
+                case 'TextColor':{//设置文字颜色,将按钮变为选择的颜色
                     let colorBtn = document.getElementById('colorBtn');
                     colorBtn.style.backgroundColor = this.CurrentColor;
                     console.log(colorBtn);
                     break;
                 }
-                case 'StartColor':{
+                case 'StartColor':{//设置开始按钮颜色
                     let colorBtn = document.getElementById('StartColor');
                     colorBtn.style.backgroundColor = this.StartColor;
                     break;
                 }
-                case 'WarnColor':{
+                case 'WarnColor':{//设置警告颜色按钮
                     let colorBtn = document.getElementById('WarnColor');
                     colorBtn.style.backgroundColor = this.WarnColor;
                     break;
                 }
-                case 'OverColor':{
+                case 'OverColor':{//设置超出颜色按钮
                     let colorBtn = document.getElementById('OverColor');
                     colorBtn.style.backgroundColor = this.OverColor;
                     break;
@@ -240,6 +240,7 @@ export default {
             }
         },
         ColorBtnClick:function(val){
+            //点击按钮后唤起对于的颜色选择input
             switch(val) {
                 case 'start':{
                     this.$refs.myStartColor.click()

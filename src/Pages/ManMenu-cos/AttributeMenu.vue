@@ -1,13 +1,15 @@
 <template>
     <div>
-        <my-progress v-if="false" />
-        <text-menu v-if="false" />
-        <drawing-menu v-if="false" />
-        <image-menu v-if="false" />
-        <video-menu v-if="false" />
-        <audio-menu v-if="false" />
-        <count-down v-if="false" />
-        <photo-menu />
+        <my-progress v-if="true" />
+        <text-menu v-if="true" />
+        <drawing-menu v-if="true" />
+        <image-menu v-if="true" />
+        <video-menu v-if="true" />
+        <audio-menu v-if="true" />
+        <count-down v-if="true" />
+        <photo-menu v-if="true" />
+        <clear-menu v-if="true" />
+        <appraisal-menu v-if="true" />
     </div>
 </template>
 
@@ -20,6 +22,8 @@ import VideoMenu from '../Attribute/VideoMenu'
 import AudioMenu from '../Attribute/AudioMenu'
 import CountDown from '../Attribute/CountDown'
 import PhotoMenu from '../Attribute/PhotoMenu'
+import ClearMenu from '../Attribute/ClearMenu'
+import AppraisalMenu from '../Attribute/AppraisalMenu'
 
 export default {
     name:'AttributeMenu',
@@ -31,7 +35,9 @@ export default {
         VideoMenu,
         AudioMenu,
         CountDown,
-        PhotoMenu
+        PhotoMenu,
+        ClearMenu,
+        AppraisalMenu
     }
 }
 </script>
