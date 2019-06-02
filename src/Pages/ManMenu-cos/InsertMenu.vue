@@ -52,7 +52,7 @@ export default {
               {name:'拍照',icon:'&#xe612;',introduce:''},
               {name:'确认条件',icon:'&#xe6d8;',introduce:''},
               {name:'资源',icon:'&#xe67d;',introduce:'',disable:true},
-              {name:'清楚',icon:'&#xe623;',introduce:''},
+              {name:'清除',icon:'&#xe623;',introduce:''},
               {name:'考评',icon:'&#xe86c;',introduce:''},
           ],
           nowWorkNum:999,//当前工序,
@@ -66,47 +66,170 @@ export default {
   methods:{
       menuBtnClickHandle:function(index){
           switch(index) {
-              case 1:{
+              case 0:{
+                  this.$store.dispatch("changeAttribute",'progress')
+                  break;
+              }
+              case 1:{//插入文字
+                  let worklist = {
+                    name:'work1',
+                    work:{
+                        id:this.$store.state.WorkListIndex,
+                        attr:'text',
+                        text:true,
+                        message:'文字：请输入文字',
+                    }
+                  }
+                  this.$store.dispatch("AddWorkStepAfter",worklist)
+                  this.$store.dispatch("changeAttribute",'text')
                   break;
               }
               case 2:{
+                  let worklist = {
+                    name:'work1',
+                    work:{
+                        id:this.$store.state.WorkListIndex,
+                        attr:'text',
+                        text:true,
+                        message:'文字：请输入文字',
+                    }
+                  }
+                  this.$store.dispatch("AddWorkStepAfter",worklist)
+                  this.$store.dispatch("changeAttribute",'text')
                   break;
               }
-              case 3:{
+              case 3:{//画图
+                  let worklist = {
+                    name:'work1',
+                    work:{
+                        id:this.$store.state.WorkListIndex,
+                        attr:'draw',
+                        message:'自定义画图',
+                    }
+                  }
+                  this.$store.dispatch("AddWorkStepAfter",worklist)
+                  this.$store.dispatch("changeAttribute",'draw')
                   break;
               }
-              case 4:{
+              case 4:{//插入图片
+                  let worklist = {
+                    name:'work1',
+                    work:{
+                        id:this.$store.state.WorkListIndex,
+                        workStep:null,
+                        attr:'image',
+                        url:'',
+                        name:'',
+                        message:'图片：请选择图片',
+                        more:''
+                    }
+                  }
+                  this.$store.dispatch("AddWorkStepAfter",worklist)
+                  this.$store.dispatch("changeAttribute",'image')
                   break;
               }
-              case 5:{
+              case 5:{//插入视频
+                  let worklist = {
+                    name:'work1',
+                    work:{
+                        id:this.$store.state.WorkListIndex,
+                        attr:'video',
+                        url:'',
+                        name:'',
+                        message:'视频：请选择视频',
+                        more:''
+                    }
+                  }
+                  this.$store.dispatch("AddWorkStepAfter",worklist)
+                  this.$store.dispatch("changeAttribute",'video')
                   break;
               }
-              case 6:{
+              case 6:{//插入音频
+                  let worklist = {
+                    name:'work1',
+                    work:{
+                        id:this.$store.state.WorkListIndex,
+                        attr:'audio',
+                        url:'',
+                        name:'',
+                        message:'音频：请选择音频',
+                        more:''
+                    }
+                  }
+                  this.$store.dispatch("AddWorkStepAfter",worklist)
+                  this.$store.dispatch("changeAttribute",'audio')
                   break;
               }
-              case 7:{
+              case 7:{//倒计时
+                  let worklist = {
+                    name:'work1',
+                    work:{
+                        id:this.$store.state.WorkListIndex,
+                        attr:'count',
+                        message:'倒计时：时间',
+                        more:''
+                    }
+                  }
+                  this.$store.dispatch("AddWorkStepAfter",worklist)
+                  this.$store.dispatch("changeAttribute",'count')
                   break;
               }
-              case 8:{
+              case 8:{//拍照
+                  let worklist = {
+                    name:'work1',
+                    work:{
+                        id:this.$store.state.WorkListIndex,
+                        attr:'photo',
+                        message:'拍照：图片名',
+                        more:''
+                    }
+                  }
+                  this.$store.dispatch("AddWorkStepAfter",worklist)
+                  this.$store.dispatch("changeAttribute",'photo')
                   break;
               }
               case 9:{
+                   this.$store.dispatch("changeAttribute",'progress')
                   break;
               }
               case 10:{
+                   
                   break;
               }
-              case 11:{
+              case 11:{//清除
+                  let worklist = {
+                    name:'work1',
+                    work:{
+                        id:this.$store.state.WorkListIndex,
+                        attr:'clear',
+                        message:'清除',
+                        clear:true,
+                        more:''
+                    }
+                  }
+                  this.$store.dispatch("AddWorkStepAfter",worklist)
+                  this.$store.dispatch("changeAttribute",'clear')
                   break;
               }
-              case 12:{
+              case 12: {
+                  let worklist = {
+                    name:'work1',
+                    work:{
+                        id:this.$store.state.WorkListIndex,
+                        attr:'test',
+                        message:'-- 考评 --',
+                        more:''
+                    }
+                  }
+                  this.$store.dispatch("AddWorkStepAfter",worklist)
+                   this.$store.dispatch("changeAttribute",'appraisal')
                   break;
               }
-              case 13:{
-                  break;
-              }
+             default: {
+                 break;
+             }
           }
-          console.log(index)
+          this.$router.push('/attribute');
       }
   }
 }

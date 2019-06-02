@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="img-content">
-                <audio :src="videoUrl" ref="myVideo"></audio>
+                <audio :src="videoUrl||TheAudiooUrl" ref="myVideo"></audio>
         </div>
 
         <div class="choose-content">
@@ -72,7 +72,7 @@ export default {
     },
     data(){
         return{
-            videoUrl:'',
+            videoUrl:null,
             imgName:'请选择音频',
             testShow:false,
             mute:false,
@@ -94,7 +94,7 @@ export default {
             this.modal = false;
         },
         btnClick:function(instruction){
-            if(this.videoUrl) {
+            if(this.videoUrl || this.TheAudiooUrl) {
                 let video = this.$refs.myVideo;
                 if(instruction == 'play') {
                     video.play();
@@ -118,6 +118,25 @@ export default {
         cycle:function(val){
             let video = this.$refs.myVideo;
             video.loop=val;
+        },
+        imgName:function(){
+            let work = {
+                id:this.$store.state.WorkListIndex,
+                attr:'audio',
+                url:this.videoUrl,
+                name:this.imgName,
+                message:'音频：' + this.imgName,
+                more:''
+            }
+            this.$store.dispatch("ChangeWorkData",work)
+        }
+    },
+    computed: {
+        TheAudiooUrl(){
+            return this.$store.state.WorkSourceLink;
+        },
+        TheVideoName() {
+            return this.$store.state.CurrentName;
         }
     }
 }

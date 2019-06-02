@@ -7,6 +7,7 @@ import './assets/iconfont/iconfont.css'
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import store from './store.js'
 import Vue2TouchEvents from 'vue2-touch-events';
 import LoadScript from 'vue-plugin-load-script';
  
@@ -19,6 +20,7 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 });

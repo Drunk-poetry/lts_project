@@ -3,7 +3,7 @@
             <div class="my-left">
                 <div class="my-select">
                     <span>文本</span>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" v-model="MainText"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" v-model="TheMainText"></textarea>
                 </div>
                 <div class="my-select">
                     <span>备注</span>
@@ -89,7 +89,7 @@ export default {
     data() {
         return {
             TextBtns:['&#xe68d;','&#xe6ef;','&#xe628;','&#xe618;','&#xe61a;','&#xe632;'],
-            MainText:'',//主要文本
+            MainText:null,//主要文本
             remark:'',//备注
             IsMultiple:false,//多行文本
             FontFamily:'微软雅黑',//字体
@@ -133,6 +133,29 @@ export default {
             let colorBtn = document.getElementById('colorBtn');
             colorBtn.style.backgroundColor = this.CurrentColor;
             console.log(colorBtn)
+        }
+    },
+    computed:{
+        TheMainText:{
+            set:function(val){
+                this.$store.dispatch("changeCurrentName",val);
+            },
+            get:function(){
+                return this.$store.state.CurrentName;
+            }
+        }
+    },
+    watch:{
+        TheMainText:function(val){
+            let work = {
+                id:this.$store.state.WorkListIndex,
+                workStep:null,
+                attr:'text',
+                text:true,
+                message:'文字：' + this.TheMainText,
+                more:''
+            }
+            this.$store.dispatch("ChangeWorkData",work)
         }
     }
 }

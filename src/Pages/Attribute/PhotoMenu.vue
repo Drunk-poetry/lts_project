@@ -3,7 +3,7 @@
             <div class="my-left">
                 <div class="my-select">
                     <span>图片名</span>
-                    <input class="form-control form-control-sm" v-model="ImageName">
+                    <input class="form-control form-control-sm" v-model="ThePhotoName">
                 </div>
                 <div class="my-select">
                     <span>备注</span>
@@ -34,7 +34,7 @@ export default {
     data() {
         return {
             TextBtns:['&#xe68d;','&#xe6ef;','&#xe628;','&#xe618;','&#xe61a;','&#xe632;'],
-            ImageName:'',//图片名
+            ImageName:null,//图片名
             remark:'',//备注
             IncludeTime:false,//含时间戳
             IncludeId:false//含工程序号
@@ -42,6 +42,27 @@ export default {
     },
     methods:{
        
+    },
+    watch:{
+        ThePhotoName:function(){
+            let work = {
+                id:this.$store.state.WorkListIndex,
+                attr:'photo',
+                message:`照片名：${this.ThePhotoName}`,
+                more:''
+            }
+            this.$store.dispatch("ChangeWorkData",work)
+        }
+    },
+    computed: {
+        ThePhotoName: {
+            set:function(val){
+                this.$store.dispatch("changeCurrentName",val);
+            },
+            get:function(){
+                return this.$store.state.CurrentName;
+            }
+        }
     }
 }
 </script>

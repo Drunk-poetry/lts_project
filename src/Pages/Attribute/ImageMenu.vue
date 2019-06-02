@@ -1,11 +1,11 @@
 <template>
     <div class="wrapper">
         <div class="img-content">
-            <div class="img" :style="{'background-image':'url('+imgUrl+')'}"></div>
+            <div class="img" :style="{'background-image':'url('+(imgUrl||TheImgUrl)+')'}"></div>
         </div>
 
         <div class="choose-content">
-            <span class="file-name">{{imgName}}</span>
+            <span class="file-name">{{imgName||TheImgName}}</span>
             <mdb-btn color="grey lighten-2" @click="chooseFile" class="my-btn">
                 <span>选择图片</span>
             </mdb-btn>
@@ -59,8 +59,8 @@ export default {
     },
     data(){
         return{
-            imgUrl:'',//图片地址
-            imgName:'请选择图片',//图片名
+            imgUrl:null,//图片地址
+            imgName:null,//图片名
             testShow:false,//是否考评模式下显示
             colorCard:false,//是否显示蒙版颜色
             myColor:'',//蒙版颜色
@@ -86,6 +86,28 @@ export default {
         ChangeMyColor:function(event){//改变颜色后执行
             let colorBtn = document.getElementById('myColor');
             colorBtn.style.backgroundColor = this.myColor;
+        }
+    },
+    watch:{
+        imgName:function(){
+            let work = {
+                id:this.$store.state.WorkListIndex,
+                workStep:null,
+                attr:'image',
+                url:this.imgUrl,
+                name:this.imgName,
+                message:'图片：' + this.imgName,
+                more:''
+            }
+            this.$store.dispatch("ChangeWorkData",work)
+        }
+    },
+    computed: {
+        TheImgUrl(){
+            return this.$store.state.WorkSourceLink;
+        },
+        TheImgName() {
+            return this.$store.state.CurrentName;
         }
     }
 }

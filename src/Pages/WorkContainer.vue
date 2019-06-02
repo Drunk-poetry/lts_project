@@ -1,7 +1,7 @@
 <template>
     <div class="work-container">
         <works-list v-if="false" />
-        <file-choose />
+        <file-choose v-if="false" />
     </div>
 </template>
 
@@ -12,7 +12,8 @@ export default {
     name: 'WorkContainer',
     components:{
         WorksList,
-        FileChoose
+        FileChoose,
+        isCreate:false
     },
     data(){
         return {
@@ -23,6 +24,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+.work-container {
+    box-sizing: border-box;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    height: calc(100vh - 217.2px);
+}
 </style>
 

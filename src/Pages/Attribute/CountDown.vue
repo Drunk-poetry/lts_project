@@ -255,6 +255,26 @@ export default {
                     break
                 }
             }
+        },
+        ChangeWork:function(){
+            let work = {
+                id:this.$store.state.WorkListIndex,
+                attr:'count',
+                message:`倒计时：${this.StartTime} - ${this.WarnTime} - ${this.OverTime}`,
+                more:''
+            }
+            this.$store.dispatch("ChangeWorkData",work)
+        }
+    },
+    watch:{
+        StartTime: function() {
+            this.ChangeWork()
+        },
+        WarnTime: function() {
+            this.ChangeWork()
+        },
+        OverTime: function() {
+            this.ChangeWork()
         }
     }
 }

@@ -13,6 +13,7 @@
             <mdb-col col="sm-3" class="text-truncate text-monospace tool-Title"><p>{{toolTitle}}</p></mdb-col>
             <mdb-col col="sm-4"><p class="float-left"><span class="iconfont"><img class="img-fluid" src="../assets/images/user.svg" alt=""></span> list-super</p><p class="float-right">v1.011</p></mdb-col>
         </mdb-row>
+        <p v-show="false">{{CurrentRoute}}</p>
   </mdb-container>
 </template>
 
@@ -65,7 +66,21 @@ export default {
           }
           this.activeIndex = index;
       }
-  }
+  },
+  computed:{
+      //监听路由地址更新当前位置
+        CurrentRoute(){
+            switch(this.$route.path) {
+                case '/':{this.activeIndex = 0; break;}
+                case '/control':{this.activeIndex = 1; break;}
+                case '/insert':{this.activeIndex = 2; break;}
+                case '/attribute':{this.activeIndex = 3; break;}
+                case '/position':{this.activeIndex = 4; break;}
+                case '/animation':{this.activeIndex = 5; break;}
+            }
+            return this.$route.path;
+        }
+    }
 }
 </script>
 

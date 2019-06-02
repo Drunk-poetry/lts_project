@@ -2,12 +2,12 @@
     <div class="wrapper">
         <div class="img-content">
             <div class="img">
-                <video :src="videoUrl" ref="myVideo"></video>
+                <video :src="videoUrl||TheVideoUrl" ref="myVideo"></video>
             </div>
         </div>
 
         <div class="choose-content">
-            <span class="file-name">{{imgName}}</span>
+            <span class="file-name">{{imgName||TheVideoName}}</span>
             <mdb-btn color="grey lighten-2" @click="chooseFile" class="my-btn">
                 <span>选择视频</span>
             </mdb-btn>
@@ -75,7 +75,7 @@ export default {
     data(){
         return{
             videoUrl:'',
-            imgName:'请选择视频',
+            imgName:null,
             testShow:false,
             mute:false,
             cycle:false,
@@ -96,7 +96,7 @@ export default {
             this.modal = false;
         },
         btnClick:function(instruction){
-            if(this.videoUrl) {
+            if(this.videoUrl || this.TheVideoUrl) {
                 let video = this.$refs.myVideo;
                 if(instruction == 'play') {
                     video.play();
@@ -120,6 +120,25 @@ export default {
         cycle:function(val){
             let video = this.$refs.myVideo;
             video.loop=val;
+        },
+        imgName:function(){
+            let work = {
+                id:this.$store.state.WorkListIndex,
+                attr:'video',
+                url:this.videoUrl,
+                name:this.imgName,
+                message:'视频：' + this.imgName,
+                more:''
+            }
+            this.$store.dispatch("ChangeWorkData",work)
+        }
+    },
+    computed: {
+        TheVideoUrl(){
+            return this.$store.state.WorkSourceLink;
+        },
+        TheVideoName() {
+            return this.$store.state.CurrentName;
         }
     }
 }

@@ -1,15 +1,15 @@
 <template>
     <div>
-        <my-progress v-if="true" />
-        <text-menu v-if="true" />
-        <drawing-menu v-if="true" />
-        <image-menu v-if="true" />
-        <video-menu v-if="true" />
-        <audio-menu v-if="true" />
-        <count-down v-if="true" />
-        <photo-menu v-if="true" />
-        <clear-menu v-if="true" />
-        <appraisal-menu v-if="true" />
+        <my-progress v-if="CurrentAttribute == 'progress'" />
+        <text-menu v-if="CurrentAttribute == 'text'" />
+        <drawing-menu v-if="CurrentAttribute == 'draw'" />
+        <image-menu v-if="CurrentAttribute == 'image'" />
+        <video-menu v-if="CurrentAttribute == 'video'" />
+        <audio-menu v-if="CurrentAttribute == 'audio'" />
+        <count-down v-if="CurrentAttribute == 'count'" />
+        <photo-menu v-if="CurrentAttribute == 'photo'" />
+        <clear-menu v-if="CurrentAttribute == 'clear'" />
+        <appraisal-menu v-if="CurrentAttribute == 'appraisal'" />
     </div>
 </template>
 
@@ -38,6 +38,11 @@ export default {
         PhotoMenu,
         ClearMenu,
         AppraisalMenu
+    },
+    computed:{
+        CurrentAttribute(){
+            return this.$store.state.CurrentAttribute;
+        }
     }
 }
 </script>

@@ -8,6 +8,7 @@
     <div class="bottom">
       <BottomMenu />
       <DataConsole />
+      <bottom-message />
     </div>
   </div>
 </template>
@@ -17,6 +18,7 @@ import ToolList from './Pages/ToolList';
 import WorkContainer from './Pages/WorkContainer';
 import BottomMenu from './Pages/BottomContent/BottomMenu'
 import DataConsole from './Pages/BottomContent/DataConsole'
+import BottomMessage from './Pages/BottomContent/BottomMessage'
 import { mdbNavbar, mdbNavItem, mdbNavbarNav, mdbNavbarToggler, mdbNavbarBrand, mdbFooter } from 'mdbvue';
 
 export default {
@@ -31,7 +33,8 @@ export default {
     ToolList,
     WorkContainer,
     BottomMenu,
-    DataConsole
+    DataConsole,
+    BottomMessage
   }
 };
 

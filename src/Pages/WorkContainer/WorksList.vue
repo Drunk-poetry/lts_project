@@ -24,15 +24,17 @@
 
                   <!--Table body-->
                   <mdb-tbl-body class="table-body">
-                      <template v-for="(work,key,index2) in worksList">
+                      <template v-for="(work,key,index2) in WorksList">
                         <tr v-for="(row,index) in work" 
-                        :key="index2*6+1 + index">
+                        :key="index2*(work.length) + index +1"
+                        @click="workClick(row)">
                           <th scope="row">
-                              <label class="form-check-label" for="checkbox1">{{index2*6 + index +1}}</label>
+                              <label class="form-check-label" for="checkbox1">{{index2*(work.length) + index +1}}</label>
                           </th>
-                          <td :class="{'work-step':index==0}">{{row.workStep}}</td>
-                          <td :class="{'work-step':index==0,'text-color':index==4,'dan-color':index==5}">{{row.message}}</td>
-                          <td :class="{'dan-color':index==5}">{{row.more}}</td>
+                          <td :class="{'work-step':row.workStep}"  v-show="row.workStep">{{index2+1}}</td>
+                          <td v-show="!row.workStep"></td>
+                          <td :class="{'work-step':row.workStep,'start-color':row.start,'clear-color':row.clear,'text-color':row.text,'dan-color':row.progress,'warn-color':row.over}">{{row.message}}</td>
+                          <td :class="{'dan-color':row.progress}">{{row.more}}</td>
                         </tr>
                       </template>
                   </mdb-tbl-body>
@@ -54,88 +56,62 @@ export default {
     },
     data(){
         return {
-            worksList: {
-                work1:[
-                    {
-                        workStep:1,
-                        message:'stepStart',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'绘图',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'图片：root_abs.png',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'图片：rod_aotsdds.png',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'文本：Text',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'-->dsakdkd[$45%3ihdosk]',
-                        more:'这里是备注信息'
-                    }
-                ],
-                work2:[
-                    {
-                        workStep:2,
-                        message:'stepStart',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'绘图',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'图片：root_abs.png',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'图片：rod_aotsdds.png',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'文本：Text',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'-->dsakdkd[$45%3ihdosk]',
-                        more:'这里是备注信息'
-                    }
-                ],
-                work3:[
-                    {
-                        workStep:3,
-                        message:'stepStart',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'绘图',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'图片：root_abs.png',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'图片：rod_aotsdds.png',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'文本：Text',
-                        more:''
-                    },{
-                        workStep:null,
-                        message:'-->dsakdkd[$45%3ihdosk]',
-                        more:'这里是备注信息'
-                    }
-                ]
+            WorksList:this.$store.state.worksList
+        }
+    },
+    methods:{
+        workClick:function(work){
+            if(work.attr) {
+                this.$store.dispatch("changeWorkListIndex",work.id);
+            }
+            switch(work.attr) {
+                case 'image':{
+                    this.$store.dispatch("changeAttribute",'image')
+                    this.$store.dispatch("changeSourceLink",work.url);
+                    this.$store.dispatch("changeCurrentName",work.name);
+                    break;
+                }
+                case 'text':{
+                    this.$store.dispatch("changeAttribute",'text')
+                    let text = work.message.split('：');//获得文本内容
+                    this.$store.dispatch("changeCurrentName",text[1]);
+                    break;
+                }
+                case 'draw':{
+                    this.$store.dispatch("changeAttribute",'draw')
+                    this.$store.dispatch("changeCurrentName",work.mesage);
+                    break;
+                }
+                case 'video':{
+                    this.$store.dispatch("changeAttribute",'video')
+                    this.$store.dispatch("changeSourceLink",work.url);
+                    this.$store.dispatch("changeCurrentName",work.name);
+                    break;
+                }
+                case 'audio':{
+                    this.$store.dispatch("changeAttribute",'audio')
+                    this.$store.dispatch("changeSourceLink",work.url);
+                    this.$store.dispatch("changeCurrentName",work.name);
+                    break;
+                }
+                case 'count':{
+                    this.$store.dispatch("changeAttribute",'count')
+                    break;
+                }
+                case 'photo':{
+                    this.$store.dispatch("changeAttribute",'photo')
+                    let text = work.message.split('：');//获得文本内容
+                    this.$store.dispatch("changeCurrentName",text[1]);
+                    break;
+                }
+                case 'clear':{
+                    this.$store.dispatch("changeAttribute",'clear')
+                    break;
+                }
+                case 'test':{
+                    this.$store.dispatch("changeAttribute",'appraisal')
+                    break;
+                }
             }
         }
     }
@@ -172,6 +148,15 @@ export default {
         }
         .dan-color {
             color: #f44336 ;
+        }
+        .warn-color {
+            color: #33b5e5;
+        }
+        .clear-color {
+            color:#ffbb33;
+        }
+        .start-color {
+            color: #47e94f;
         }
     }
     .my-table {
