@@ -12,6 +12,9 @@ export default new Vuex.Store({
     CurrentName:null,//当前name
     worksList:{},
     isCreated:false,//是否创建新文件
+    isShowMes:false,//通过模态框显示消息
+    ModalMessage:'',//模态框消息
+    ModalType:'',//模态框类型，决定触发不同方法
     worksList2: {
         work1:[
             {
@@ -98,6 +101,22 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+      //改变模态框类型
+      changeModalType: (state,val) => {
+          state.ModalType = val;
+      },
+      //是否已经创建文件
+      changeCreated: (state,val) => {
+        state.isCreated = val;
+      },
+      //改变模态框消息内容
+      changeModalMessage: (state,val) => {
+        state.ModalMessage = val;
+      },
+      //改变模态框显示状态
+      changeModalShow: (state,val) => {
+          state.isShowMes = val;
+      },
       // 改变当前属性
     changeAttribute: (state,val) => {
         state.CurrentAttribute = val;
@@ -152,11 +171,27 @@ export default new Vuex.Store({
     },
     //修改workList属性
     ChangeWorkData: (state,val) => {
-        console.log(val.id);
+        //console.log(val.id);
         state.worksList.work1.splice(val.id,1,val)
     }
   },
   actions: {//解决异步问题
+    //改变模态框类型
+    changeModalType: (context,val) => {
+        context.commit('changeModalType',val);
+      },
+    //是否已经创建文件
+    changeCreated: (context,val) => {
+        context.commit('changeCreated',val);
+      },
+     //改变模态框消息内容
+     changeModalMessage: (context,val) => {
+        context.commit('changeModalMessage',val);
+      },
+      //改变模态框显示状态
+      changeModalShow: (context,val) => {
+          context.commit('changeModalShow',val);
+      },
     // 提交改变属性事件给mutations
     changeAttribute: (context,val) => {
         context.commit('changeAttribute',val);

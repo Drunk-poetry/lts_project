@@ -5,19 +5,23 @@
                 <mdb-btn-group size="sm">
                     <mdb-btn color="grey darken-1" class="btn-border"
                         :active="index == activeIndex"
-                         v-for="(tool,index) in tools" 
+                         v-for="(tool,index) in currentTools" 
                          :key="index" 
                          @click="toolsClickHandle(index)">{{tool}}</mdb-btn>
                 </mdb-btn-group>
             </mdb-col>
             <mdb-col col="sm-3" class="text-truncate text-monospace tool-Title"><p>{{toolTitle}}</p></mdb-col>
-            <mdb-col col="sm-4"><p class="float-left"><span class="iconfont"><img class="img-fluid" src="../assets/images/user.svg" alt=""></span> list-super</p><p class="float-right">v1.011</p></mdb-col>
+            <mdb-col col="sm-4"><p class="float-left" @click="userLogin(true)"><span class="iconfont"><img class="img-fluid" src="../assets/images/user.svg" alt=""></span> list-super</p><p class="float-right">v1.011</p></mdb-col>
         </mdb-row>
         <p v-show="false">{{CurrentRoute}}</p>
+
+        <!-- 用户登录 -->
+        <user-login :login="isShowLogin" @isLogin="userLogin(false)" />
   </mdb-container>
 </template>
 
 <script>
+import UserLogin from './Settings/UserLogin';
 import { mdbContainer, mdbRow, mdbCol,mdbBtn,mdbIcon,mdbBtnGroup } from 'mdbvue';
 export default {
   name: "ToolList",
@@ -27,17 +31,20 @@ export default {
       mdbContainer,
       mdbRow,
       mdbCol,
-      mdbBtnGroup
+      mdbBtnGroup,
+      UserLogin
   },
   data(){
       return {
-          tools:["L T S","控制","插入","属性","位置","动画"],
+          currentTools:["L T S","控制"],
+          tools:["插入","属性","位置","动画"],
           toolTitle: "当前编辑内容",
-          activeIndex:0
+          activeIndex:0,
+          isShowLogin:false,//是否显示登录界面
       }
   },
   methods:{
-      toolsClickHandle:function(index){
+      toolsClickHandle:function(index){//导航
           switch(index) {
               case 0: {
                   this.$router.push('/');
@@ -65,11 +72,14 @@ export default {
               }
           }
           this.activeIndex = index;
+      },
+      userLogin:function(val){//用户登录
+        this.isShowLogin = val;
       }
   },
   computed:{
       //监听路由地址更新当前位置
-        CurrentRoute(){
+        CurrentRoute:function(){
             switch(this.$route.path) {
                 case '/':{this.activeIndex = 0; break;}
                 case '/control':{this.activeIndex = 1; break;}
@@ -79,6 +89,16 @@ export default {
                 case '/animation':{this.activeIndex = 5; break;}
             }
             return this.$route.path;
+        },
+        isCreated:function(){
+            return this.$store.state.isCreated;
+        }
+    },
+     watch:{
+        isCreated:function(){
+            if(this.isCreated) {
+                this.currentTools = this.currentTools.concat(this.tools);
+            }
         }
     }
 }
@@ -95,6 +115,7 @@ p{
     background: #616161;
     color: #fff;
     .float-left {
+        cursor: pointer;
         span {
             display: inline-block;
             width: 1.3rem;

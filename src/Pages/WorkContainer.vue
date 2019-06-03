@@ -1,7 +1,7 @@
 <template>
     <div class="work-container">
-        <works-list v-if="false" />
-        <file-choose v-if="false" />
+        <works-list v-if="isCreated" />
+        <file-choose v-if="!isCreated" />
     </div>
 </template>
 
@@ -12,12 +12,16 @@ export default {
     name: 'WorkContainer',
     components:{
         WorksList,
-        FileChoose,
-        isCreate:false
+        FileChoose
     },
     data(){
         return {
             showWorkList:false
+        }
+    },
+    computed:{
+        isCreated:function(){
+            return this.$store.state.isCreated;
         }
     }
 }

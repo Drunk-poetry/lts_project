@@ -2,8 +2,8 @@
 <mdb-container fluid class="my-container">
     <div class="wrapper">
         <div class="left">
-            <mdb-btn color="grey lighten-2 btn1" class="active" @click="changeShow(false)">历史记录</mdb-btn>
-            <mdb-btn color="grey lighten-2 btn1" @click="changeShow(true)">输出信息</mdb-btn>
+            <mdb-btn color="grey lighten-2 btn1" :class="{active:isActive==0}" @click="changeShow(false,0)">历史记录</mdb-btn>
+            <mdb-btn color="grey lighten-2 btn1" :class="{active:isActive==1}" @click="changeShow(true,1)">输出信息</mdb-btn>
         </div>
         <div class="right">
             <mdb-btn color="grey lighten-2 btn1" @click="unfold">
@@ -60,8 +60,9 @@ export default {
     },
     data(){
         return {
-            isShow:false,
-            isOutput:false,
+            isShow:false,//是否显示
+            isOutput:false,//是否显示输出信息
+            isActive:0,
             consoleDatra:[
                 {id:1,time:'2019-12-12 12:59:59',type:'String',message:'this is message about console'},
                 {id:2,time:'2019-12-12 12:59:59',type:'String',message:'this is message about console'},
@@ -84,8 +85,9 @@ export default {
                  this.$refs.consoleTable.style.height= "0";
             }
         },
-        changeShow:function(isok){
+        changeShow:function(isok, index){
             isok ? this.isOutput = true : this.isOutput = false;
+            this.isActive = index;
         }
     }
 }

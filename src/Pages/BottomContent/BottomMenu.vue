@@ -2,7 +2,8 @@
 <mdb-container fluid class="my-container">
     <div class="wrapper">
         <mdb-btn color="grey lighten-2 btn1" 
-            v-for="btn in btnData2"
+            v-for="(btn ,index) in currentData"
+            @click="btnHandle(index)"
             :key="btn.id">{{btn.text}}</mdb-btn>
     </div>
 </mdb-container>
@@ -10,6 +11,7 @@
 
 <script>
 import { mdbContainer, mdbRow, mdbCol,mdbBtn } from 'mdbvue';
+import { mapState, mapActions } from 'vuex'
 export default {
     name: 'BottomMenu',
     components:{
@@ -33,8 +35,50 @@ export default {
                 {id:6,text:'删除',btnFun:'showit'},
                 {id:7,text:'保存',btnFun:'showit'},
                 {id:8,text:'退出',btnFun:'showit'}
-            ]
+            ],
+            currentData:[]//当前按钮组
         }
+    },
+    methods:{
+        ...mapActions({
+            changeModalShow:'changeModalShow',
+            changeModalMsg:'changeModalMessage',
+            changeModalType:'changeModalType'
+        }),
+        btnHandle:function(index) {
+            if(!this.isCreated && index == 0) {//给新建按钮绑定事件
+                this.changeModalMsg('确定  已保存 然后创建新的Program');
+                this.changeModalShow(true);
+                this.changeModalType('newFile')
+            }
+        }
+    },
+    computed:{
+        ...mapState({
+            isCreated:'isCreated'
+        })
+    },
+    watch:{
+        isCreated:function(){
+            if(this.isCreated) {
+                this.currentData.splice(0,this.currentData.length);
+                this.currentData = this.currentData.concat([],this.btnData2);
+                
+            } else {
+                this.currentData.splice(0,this.currentData.length);
+                this.currentData = this.currentData.concat([],this.btnData1);
+            }
+            }
+    },
+    mounted(){
+        if(this.isCreated) {
+                this.currentData.splice(0,this.currentData.length);
+                this.currentData = this.currentData.concat([],this.btnData2);
+                
+            } else {
+                this.currentData.splice(0,this.currentData.length);
+                this.currentData = this.currentData.concat([],this.btnData1);
+            }
     }
 }
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="flyout">
+    <my-modal />
     <tool-list/>
     <div class="main-menu">
       <transition name="fade" mode="out-in"><router-view></router-view></transition>
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+import MyModal from './Pages/MyModal';
 import ToolList from './Pages/ToolList';
 import WorkContainer from './Pages/WorkContainer';
 import BottomMenu from './Pages/BottomContent/BottomMenu'
@@ -34,7 +36,8 @@ export default {
     WorkContainer,
     BottomMenu,
     DataConsole,
-    BottomMessage
+    BottomMessage,
+    MyModal
   }
 };
 

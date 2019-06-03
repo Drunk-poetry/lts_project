@@ -14,11 +14,14 @@
                     </mdb-btn>
                 </div>
         </mdb-container>
+        <set-content @hideSetting="isShowSetting(false)" :isShow="isShow"  />
     </div>
 </template>
 
 <script>
+import SetContent from '../Settings/SettingContent'
 import { mdbContainer, mdbRow, mdbCol,mdbBtn,mdbIcon,mdbBtnGroup } from 'mdbvue';
+import { mapActions } from 'vuex';
 export default {
     name:'MainMenu',
     components:{
@@ -27,7 +30,8 @@ export default {
       mdbContainer,
       mdbRow,
       mdbCol,
-      mdbBtnGroup
+      mdbBtnGroup,
+      SetContent
   },
   data(){
       return {
@@ -41,13 +45,37 @@ export default {
               {name:'帮助',icon:'&#xe630;',introduce:'帮助'},
               {name:'退出',icon:'&#xe64a;',introduce:'退出'}
           ],
-          ActiveIndex:null
+          ActiveIndex:null,
+          isShow:false,//是否显示设置
       }
   },
   methods: {
       menuBtnClickHandle:function(index) {
           this.ActiveIndex = index;
-      }
+          switch(index) {
+              case 0:{
+                  if(!this.isCreated) {//给新建按钮绑定事件
+                    this.changeModalMsg('确定  已保存 然后创建新的Program');
+                    this.changeModalShow(true);
+                    this.changeModalType('newFile')
+                }
+                break;
+              }
+              case 4:{
+                  this.isShow = true;
+              }
+          }
+      },
+      //显示设置
+      isShowSetting:function(val){//用户登录
+        this.isShow = val;
+        this.ActiveIndex = -1;
+      },
+        ...mapActions({
+            changeModalShow:'changeModalShow',
+            changeModalMsg:'changeModalMessage',
+            changeModalType:'changeModalType'
+        })
   }
 }
 </script>
