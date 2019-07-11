@@ -3,7 +3,7 @@
 ## 实现了主要UI界面及逻辑。  
 # 使用方法
 >   npm install  
->   npm run dev  
+>   npm start  
 
 <p align="center">
   <a href="https://mdbootstrap.com/docs/vue/" target="_blank">
