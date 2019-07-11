@@ -31,31 +31,6 @@
 __________
 
 
-## Table of Contents
-
-* [Other Technologies](#other-technologies)
-* [Demo](#demo)
-* [Version](#version)
-* [Quick start](#quick-start)
-* [Supported Browsers](#supported-browsers)
-* [Contributing](#contributing)
-* [Additional tutorials](#additional-tutorials)
-* [PRO verion](#pro-version)
-* [Documentation](#documentation)
-* [Highlights](#highlights)
-* [Useful Links](#useful-links)
-* [Social Media](#social-media)
-* [Contact](#contact)
-
-
-# Other Technologies
-
-[<img src="https://mdbootstrap.com/img/Marketing/general/logo/small/angular.png"/>](https://mdbootstrap.com/docs/angular/)[<img src="https://mdbootstrap.com/img/Marketing/general/logo/small/react.png"/>](https://mdbootstrap.com/docs/react/)[<img src="https://mdbootstrap.com/img/Marketing/general/logo/small/jquery.png"/>](https://mdbootstrap.com/docs/vue/)
-
-# Demo
-
- - [Main demo](https://mdbootstrap.com/docs/vue/components/demo/)
-
 # Version
 
 - MDBVue 5.4.0
